@@ -11,17 +11,18 @@ export const site = {
   subhead:
     "Curated package tours — flights, hotels, and local guides in a single booking. You just show up.",
   cta: "Request a trip",
-  /* 555-01xx is the reserved fictional range — it cannot ring a real person. */
-  contact: {
-    phone: "+1 (415) 555-0142",
-    phoneHref: "tel:+14155550142",
-    hours: "Mon–Fri, 9–6 PT",
-  },
   highlights: [
     "Small groups",
     "Flights + hotels included",
     "40+ destinations",
   ],
+  /* 555-01xx is the reserved fictional range — it cannot ring a real person. */
+  contact: {
+    phone: "+1 (415) 555-0142",
+    phoneHref: "tel:+14155550142",
+    email: "trips@altura.example",
+    hours: "Mon–Fri, 9–6 PT",
+  },
   dialog: {
     title: "Request a trip",
     description:
@@ -34,14 +35,80 @@ export const site = {
   },
 } as const
 
+export const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Destinations", href: "#destinations" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
+] as const
+
+export const destinations = [
+  {
+    name: "Japan",
+    blurb: "Tokyo, Hakone, and Kyoto by rail, with two nights in a ryokan.",
+    length: "10–12 days",
+    season: "Mar–May · Oct–Nov",
+  },
+  {
+    name: "Italy",
+    blurb: "Rome, Florence, and a slow week between the hill towns of Tuscany.",
+    length: "9–12 days",
+    season: "Apr–Jun · Sep",
+  },
+  {
+    name: "Iceland",
+    blurb: "The Ring Road at a pace that leaves room for the weather to change.",
+    length: "8–10 days",
+    season: "Jun–Aug · Feb",
+  },
+  {
+    name: "Vietnam & Cambodia",
+    blurb: "Hanoi down to the delta, then three days at Angkor before the heat.",
+    length: "12–14 days",
+    season: "Nov–Mar",
+  },
+  {
+    name: "Portugal & Spain",
+    blurb: "Lisbon, the Alentejo, and Seville, with the driving kept short.",
+    length: "9–11 days",
+    season: "Mar–Jun · Sep–Oct",
+  },
+  {
+    name: "Peru",
+    blurb: "Cusco, the Sacred Valley, and Machu Picchu with time to acclimatise.",
+    length: "10–13 days",
+    season: "May–Sep",
+  },
+] as const
+
 export const destinationOptions = [
   "Not sure yet",
-  "Japan",
-  "Vietnam & Cambodia",
-  "Italy",
-  "Portugal & Spain",
-  "Iceland",
-  "Morocco",
-  "Peru",
-  "New Zealand",
+  ...destinations.map((d) => d.name),
+] as const
+
+export const faqs = [
+  {
+    q: "What is actually included?",
+    a: "International flights, all accommodation, airport and intercity transfers, a local guide on scheduled touring days, and every activity named in the itinerary. Breakfast is always included; other meals are listed trip by trip so you can see exactly which evenings are your own.",
+  },
+  {
+    q: "How far ahead should I book?",
+    a: "Three to six months for most departures. Japan in cherry blossom season, Iceland in midsummer, and Peru in the dry season are the ones that close early — those are worth starting eight or nine months out.",
+  },
+  {
+    q: "Can you change an itinerary?",
+    a: "Yes. Every itinerary is a starting point, not a fixed menu. Adding days, swapping a city, upgrading hotels, or building in rest days are all normal requests. Tell us what you want different and we will re-cost it before you commit to anything.",
+  },
+  {
+    q: "How large are the groups?",
+    a: "Fourteen travellers maximum, and most departures run with eight to ten. If you would rather not travel with anyone else, every itinerary can be run privately for your own party.",
+  },
+  {
+    q: "What if I need to cancel?",
+    a: "Dates can be moved free of charge up to 60 days before departure. Inside 60 days the cancellation terms depend on what the airlines and hotels have already committed to, and we set those out in writing before you pay a deposit.",
+  },
+  {
+    q: "Do you handle visas and insurance?",
+    a: "We tell you exactly which visas your passport needs and when to apply, but you file them yourself. Travel insurance is required to travel with us and you buy it independently, so the cover is yours rather than ours.",
+  },
 ] as const

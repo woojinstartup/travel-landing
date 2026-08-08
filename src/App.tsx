@@ -1,20 +1,44 @@
-import { Phone } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
+import { Contact, Destinations, Faq, SiteFooter } from "@/components/sections"
 import { InquiryDialog } from "@/components/inquiry-dialog"
-import { Wordmark } from "@/components/wordmark"
+import { SiteNav } from "@/components/site-nav"
 import { site } from "@/site"
 
 export default function App() {
   return (
-    <main className="relative min-h-[100svh] overflow-hidden bg-dusk-deep">
+    <>
+      <SiteNav />
+
+      <main>
+        <Hero />
+
+        {/* Everything below the hero runs on the dark token set, so the shadcn
+            primitives (accordion, sheet) inherit the right colours instead of
+            being re-skinned one by one. The dialog portals to <body> and stays
+            on the light surface. */}
+        <div className="dark bg-background text-foreground">
+          <Destinations />
+          <Faq />
+          <Contact />
+          <SiteFooter />
+        </div>
+      </main>
+    </>
+  )
+}
+
+function Hero() {
+  return (
+    <section
+      id="home"
+      className="relative min-h-[100svh] overflow-hidden bg-dusk-deep"
+    >
       <HeroMedia />
 
-      <div className="relative z-10 flex min-h-[100svh] flex-col">
-        <SiteNav />
+      <div className="relative z-10 flex min-h-[100svh] flex-col justify-end">
         <HeroCopy />
       </div>
-    </main>
+    </section>
   )
 }
 
@@ -47,60 +71,9 @@ function HeroMedia() {
   )
 }
 
-function SiteNav() {
-  return (
-    <header className="px-4 pt-4 sm:px-6 sm:pt-6">
-      <nav className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-4 rounded-full border border-linen/15 bg-dusk-deep/25 py-2.5 pr-2.5 pl-5 text-linen backdrop-blur-xl sm:pr-3 sm:pl-6">
-        <a href="/" className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-linen/60">
-          <Wordmark />
-          <span className="sr-only">{site.name} — home</span>
-        </a>
-
-        {/* The middle holds the two things a tour operator's header actually
-            earns its space with. Both are real: the number dials, the hours
-            tell you whether it is worth dialling. No placeholder links. */}
-        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 md:flex">
-          <a
-            href={site.contact.phoneHref}
-            className="group flex items-center gap-2 rounded-full px-2 py-1 text-[0.85rem] font-medium text-linen/90 transition-colors outline-none hover:text-linen focus-visible:ring-2 focus-visible:ring-linen/60"
-          >
-            <Phone className="size-3.5 text-ember transition-transform group-hover:-rotate-12" />
-            <span className="tabular-nums">{site.contact.phone}</span>
-          </a>
-
-          <span aria-hidden="true" className="h-4 w-px bg-linen/20" />
-
-          <span className="text-[0.8rem] text-linen/60">{site.contact.hours}</span>
-        </div>
-
-        <div className="flex items-center gap-1">
-          {/* Below `md` the number collapses to an icon so it never disappears
-              on the device most likely to place the call. */}
-          <a
-            href={site.contact.phoneHref}
-            aria-label={`Call ${site.name} on ${site.contact.phone}`}
-            className="grid size-10 place-items-center rounded-full text-linen/85 transition-colors outline-none hover:bg-linen/10 hover:text-linen focus-visible:ring-2 focus-visible:ring-linen/60 md:hidden"
-          >
-            <Phone className="size-4" />
-          </a>
-
-          <InquiryDialog>
-            <Button
-              variant="ghost"
-              className="h-10 rounded-full border-linen/25 px-5 text-[0.85rem] font-medium text-linen hover:border-linen/40 hover:bg-linen/10 hover:text-linen focus-visible:ring-linen/50"
-            >
-              {site.cta}
-            </Button>
-          </InquiryDialog>
-        </div>
-      </nav>
-    </header>
-  )
-}
-
 function HeroCopy() {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-end px-6 pb-14 sm:px-8 sm:pb-20 lg:pb-24">
+    <div className="mx-auto flex w-full max-w-6xl flex-col px-6 pb-14 sm:px-8 sm:pb-20 lg:pb-24">
       <p
         className="rise copy-shadow flex items-center gap-3 text-[0.7rem] tracking-[0.28em] text-linen/85 uppercase"
         style={{ animationDelay: "120ms" }}

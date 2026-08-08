@@ -29,8 +29,14 @@ import { destinationOptions, site } from "@/site"
  * success state. Nothing is transmitted anywhere. To make this real, POST
  * `values` to an endpoint here and drive `status` off the response.
  */
-function InquiryForm({ onSent }: { onSent: () => void }) {
-  const [destination, setDestination] = React.useState<string>("")
+function InquiryForm({
+  onSent,
+  initialDestination = "",
+}: {
+  onSent: () => void
+  initialDestination?: string
+}) {
+  const [destination, setDestination] = React.useState(initialDestination)
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -136,7 +142,15 @@ function Field({
   )
 }
 
-export function InquiryDialog({ children }: { children: React.ReactNode }) {
+export function InquiryDialog({
+  children,
+  destination,
+}: {
+  children: React.ReactNode
+  /** Preselects the "Where to?" field — used by the destination cards, so
+   *  clicking "Japan" opens the form already pointed at Japan. */
+  destination?: string
+}) {
   const [open, setOpen] = React.useState(false)
   const [sent, setSent] = React.useState(false)
 
@@ -182,7 +196,11 @@ export function InquiryDialog({ children }: { children: React.ReactNode }) {
                 {site.dialog.description}
               </DialogDescription>
             </DialogHeader>
-            <InquiryForm onSent={() => setSent(true)} />
+            <InquiryForm
+              key={destination ?? ""}
+              initialDestination={destination}
+              onSent={() => setSent(true)}
+            />
           </>
         )}
       </DialogContent>

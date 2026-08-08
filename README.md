@@ -1,7 +1,8 @@
-# Altura — hero landing page
+# Altura — landing page
 
-A single full-bleed hero section for a fictional package-tour operator, built
-around `public/hero.mp4`. The CTA opens an inquiry form in a dialog.
+A landing page for a fictional package-tour operator, built around a full-bleed
+hero video. Four sections: the hero, destinations, an FAQ, and contact. Every
+CTA opens the same inquiry dialog.
 
 ## Run
 
@@ -19,8 +20,10 @@ static host.
 
 | File | What it holds |
 | --- | --- |
-| `src/site.ts` | All page copy. Rewrite here, not in the layout. |
-| `src/App.tsx` | Hero: video, scrims, nav, headline block. |
+| `src/site.ts` | All page copy — nav links, destinations, FAQ. Rewrite here, not in the layout. |
+| `src/App.tsx` | Page shell and the hero: video, scrims, headline block. |
+| `src/components/site-nav.tsx` | Fixed nav island and its mobile sheet. |
+| `src/components/sections.tsx` | Destinations, FAQ, contact, footer. |
 | `src/components/inquiry-dialog.tsx` | The CTA dialog and its form. |
 | `src/index.css` | Design tokens — palette, fonts, grain, motion. |
 | `public/hero.mp4` | 2560×1440 · H.264 · 24fps · 8s, loops silently, no audio track. |
@@ -59,6 +62,19 @@ layer is down at 5% opacity; it now only breaks up banding in the sky.
 
 The grain and the entrance animations both stop under
 `prefers-reduced-motion: reduce`.
+
+## Navigation
+
+The nav links point at real sections, so none of them dead-ends: `#home`,
+`#destinations`, `#faq`, `#contact`. Below `md` they collapse into a sheet.
+
+The hero runs on the light token set inverted by hand (`linen` on `dusk`);
+everything below it is wrapped in `.dark` so the shadcn primitives — accordion,
+sheet — inherit the right colours rather than being re-skinned one by one. The
+dialog portals to `<body>`, which keeps it on the light cream surface.
+
+Destination cards open the inquiry dialog with that destination preselected, so
+clicking "Iceland" is a real action rather than decoration.
 
 ## The inquiry form does not send anything
 

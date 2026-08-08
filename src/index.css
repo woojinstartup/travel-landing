@@ -117,7 +117,7 @@
     }
 
     html {
-        @apply font-sans antialiased;
+        @apply scroll-smooth font-sans antialiased;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -175,6 +175,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
     .grain::after {
         animation: none;
     }
