@@ -9,7 +9,7 @@ export const site = {
     accent: "already planned.",
   },
   subhead:
-    "Curated package tours — flights, hotels, and local guides in a single booking. You just show up.",
+    "Curated package tours. Flights, hotels, and local guides in a single booking. You just show up.",
   cta: "Request a trip",
   highlights: [
     "Small groups",
