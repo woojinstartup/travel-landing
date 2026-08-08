@@ -94,15 +94,6 @@ export function SiteNav() {
                 ))}
               </ul>
 
-              <div className="mt-auto grid gap-1 border-t border-border px-4 py-5 text-sm">
-                <a
-                  href={site.contact.phoneHref}
-                  className="font-medium text-foreground tabular-nums outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  {site.contact.phone}
-                </a>
-                <span className="text-muted-foreground">{site.contact.hours}</span>
-              </div>
             </SheetContent>
           </Sheet>
         </div>

@@ -1,4 +1,4 @@
-import { ArrowUpRight, Clock, Mail, Phone } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 
 import {
   Accordion,
@@ -117,32 +117,25 @@ export function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Tell us where you want to go."
-          lede="Send the request form and a trip planner replies within one business day with two or three options. Or call — someone who plans these trips will pick up."
+          lede="Send the request form and a trip planner replies with two or three options built around what you asked for. No call queue, no sales sequence."
         />
 
         <div className="grid gap-8">
+          {/* No phone number and no email address, here or anywhere else on the
+              page — the form is the only channel, so there is nothing on screen
+              that could be dialled or written to. */}
           <dl className="grid gap-5">
-            <ContactRow icon={<Phone className="size-4" />} label="Phone">
-              <a
-                href={site.contact.phoneHref}
-                className="tabular-nums outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
+            {site.contactFacts.map((fact) => (
+              <div
+                key={fact.label}
+                className="flex flex-col gap-1 border-b border-border pb-5 sm:flex-row sm:items-baseline sm:gap-6"
               >
-                {site.contact.phone}
-              </a>
-            </ContactRow>
-
-            <ContactRow icon={<Mail className="size-4" />} label="Email">
-              <a
-                href={`mailto:${site.contact.email}`}
-                className="outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {site.contact.email}
-              </a>
-            </ContactRow>
-
-            <ContactRow icon={<Clock className="size-4" />} label="Hours">
-              {site.contact.hours}
-            </ContactRow>
+                <dt className="w-40 shrink-0 text-[0.8rem] tracking-wide text-muted-foreground uppercase">
+                  {fact.label}
+                </dt>
+                <dd className="text-[1.0625rem] text-pretty">{fact.value}</dd>
+              </div>
+            ))}
           </dl>
 
           <InquiryDialog>
@@ -153,26 +146,6 @@ export function Contact() {
         </div>
       </div>
     </section>
-  )
-}
-
-function ContactRow({
-  icon,
-  label,
-  children,
-}: {
-  icon: React.ReactNode
-  label: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className="flex items-baseline gap-4 border-b border-border pb-5">
-      <dt className="flex w-28 shrink-0 items-center gap-2.5 text-[0.8rem] tracking-wide text-muted-foreground uppercase">
-        <span className="text-ember">{icon}</span>
-        {label}
-      </dt>
-      <dd className="text-[1.0625rem]">{children}</dd>
-    </div>
   )
 }
 

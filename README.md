@@ -76,6 +76,17 @@ dialog portals to `<body>`, which keeps it on the light cream surface.
 Destination cards open the inquiry dialog with that destination preselected, so
 clicking "Iceland" is a real action rather than decoration.
 
+## No phone number or email address
+
+There is deliberately no phone number and no email address anywhere on the page,
+in the nav, or in `site.ts`. A plausible-looking contact detail on a public page
+invites someone to dial or write to it, and this operator does not exist. The
+request form is the only channel, and the contact section carries reply times
+instead of addresses.
+
+If you add real contact details later, that is the moment to also wire the form
+up — see below.
+
 ## The inquiry form does not send anything
 
 This is deliberate — there is no backend and no endpoint configured. On submit,

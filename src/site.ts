@@ -16,13 +16,14 @@ export const site = {
     "Flights + hotels included",
     "40+ destinations",
   ],
-  /* 555-01xx is the reserved fictional range — it cannot ring a real person. */
-  contact: {
-    phone: "+1 (415) 555-0142",
-    phoneHref: "tel:+14155550142",
-    email: "trips@altura.example",
-    hours: "Mon–Fri, 9–6 PT",
-  },
+  /* Deliberately no phone number or email address anywhere on this page. The
+     request form is the only contact channel, so nothing here can be mistaken
+     for a real address and dialled or written to. */
+  contactFacts: [
+    { label: "Reply time", value: "Within one business day" },
+    { label: "Planning hours", value: "Mon–Fri, 9–6 PT" },
+    { label: "To book", value: "No deposit until the itinerary is agreed" },
+  ],
   dialog: {
     title: "Request a trip",
     description:
