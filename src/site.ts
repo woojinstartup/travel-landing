@@ -11,6 +11,12 @@ export const site = {
   subhead:
     "Curated package tours — flights, hotels, and local guides in a single booking. You just show up.",
   cta: "Request a trip",
+  /* 555-01xx is the reserved fictional range — it cannot ring a real person. */
+  contact: {
+    phone: "+1 (415) 555-0142",
+    phoneHref: "tel:+14155550142",
+    hours: "Mon–Fri, 9–6 PT",
+  },
   highlights: [
     "Small groups",
     "Flights + hotels included",
