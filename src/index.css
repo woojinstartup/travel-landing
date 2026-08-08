@@ -134,15 +134,16 @@
 }
 
 @layer utilities {
-    /* Fine film grain. Hides the softness of the 720p source when the video is
-       scaled up to fill a large viewport. */
+    /* Film grain, kept barely-there. The source is now 2560×1440, so this is
+       only breaking up gradient banding in the sky — it is no longer hiding
+       softness, and any more of it reads as a blur over the footage. */
     .grain::after {
         content: "";
         position: absolute;
         inset: -50%;
         pointer-events: none;
-        opacity: 0.16;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
         will-change: transform;
         animation: grain-drift 6s steps(6) infinite;
     }
@@ -154,6 +155,12 @@
         50% { transform: translate(-2%, -2%); }
         66% { transform: translate(3%, 1%); }
         83% { transform: translate(-1%, 3%); }
+    }
+
+    /* Lets the scrims stay light: the copy carries its own local contrast
+       instead of relying on darkening the whole frame. */
+    .copy-shadow {
+        text-shadow: 0 1px 16px color-mix(in oklch, var(--color-dusk-deep), transparent 25%);
     }
 
     .rise {

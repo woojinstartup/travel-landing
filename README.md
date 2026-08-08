@@ -23,7 +23,7 @@ static host.
 | `src/App.tsx` | Hero: video, scrims, nav, headline block. |
 | `src/components/inquiry-dialog.tsx` | The CTA dialog and its form. |
 | `src/index.css` | Design tokens — palette, fonts, grain, motion. |
-| `public/hero.mp4` | 1280×720 · H.264 · 24fps · 8s, loops silently. |
+| `public/hero.mp4` | 2560×1440 · H.264 · 24fps · 8s, loops silently, no audio track. |
 | `public/hero-poster.jpg` | First frame, shown until the video is ready. |
 
 ## Design notes
@@ -40,8 +40,23 @@ in one key:
 Type is Instrument Serif for display and Inter for UI, both self-hosted via
 Fontsource — no external font requests at runtime.
 
-The source video is 720p, so it gets soft when scaled to a large viewport. A
-fine animated grain layer (`.grain` in `index.css`) sits over it to hide that.
+The delivered video is 2560×1440. The original render was 1280×720, which went
+visibly soft once it filled a large viewport, so it was upscaled with lanczos
+and an unsharp pass:
+
+```bash
+ffmpeg -i original.mp4 \
+  -vf "scale=2560:1440:flags=lanczos,unsharp=luma_msize_x=5:luma_msize_y=5:luma_amount=1.0:chroma_amount=0" \
+  -c:v libx264 -profile:v high -crf 21 -preset slow \
+  -pix_fmt yuv420p -movflags +faststart -an public/hero.mp4
+```
+
+Sharpness here is mostly a question of what sits *on top* of the footage. The
+scrims are deliberately tight — a global wash reads as blur — so the copy
+carries its own contrast via `.copy-shadow`, and a bottom-left radial gradient
+pools darkness under the text while leaving the sun and wing clean. The grain
+layer is down at 5% opacity; it now only breaks up banding in the sky.
+
 The grain and the entrance animations both stop under
 `prefers-reduced-motion: reduce`.
 

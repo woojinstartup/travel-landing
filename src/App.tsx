@@ -19,8 +19,10 @@ export default function App() {
 function HeroMedia() {
   return (
     <div className="grain absolute inset-0 overflow-hidden">
+      {/* No upscale on the element itself — the source is already 2560×1440,
+          so any CSS scale would just throw that resolution away again. */}
       <video
-        className="size-full scale-[1.04] object-cover"
+        className="size-full object-cover contrast-[1.04] saturate-[1.03]"
         src="/hero.mp4"
         poster="/hero-poster.jpg"
         autoPlay
@@ -32,11 +34,13 @@ function HeroMedia() {
         tabIndex={-1}
       />
 
-      {/* Three scrims, each doing one job: seat the nav, anchor the copy,
-          and keep the left column dark enough for text on wide screens. */}
-      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-dusk-deep/70 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-dusk-deep via-dusk-deep/45 via-45% to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-dusk-deep/70 via-dusk-deep/10 to-transparent lg:via-40%" />
+      {/* Scrims are the main thing that reads as "blurry", so they are kept
+          tight and local rather than washed across the frame. The radial one
+          pools darkness under the copy in the bottom-left and leaves the sun
+          and the wing — the sharpest part of the shot — untouched. */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-dusk-deep/55 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-dusk-deep/90 via-dusk-deep/15 via-30% to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_8%_92%,var(--color-dusk-deep)_0%,color-mix(in_oklch,var(--color-dusk-deep),transparent_45%)_38%,transparent_72%)] opacity-85" />
     </div>
   )
 }
@@ -67,7 +71,7 @@ function HeroCopy() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-end px-6 pb-14 sm:px-8 sm:pb-20 lg:pb-24">
       <p
-        className="rise flex items-center gap-3 text-[0.7rem] tracking-[0.28em] text-linen/70 uppercase"
+        className="rise copy-shadow flex items-center gap-3 text-[0.7rem] tracking-[0.28em] text-linen/85 uppercase"
         style={{ animationDelay: "120ms" }}
       >
         <span aria-hidden="true" className="h-px w-8 bg-ember/80" />
@@ -75,7 +79,7 @@ function HeroCopy() {
       </p>
 
       <h1
-        className="rise font-display mt-5 max-w-[15ch] text-5xl leading-[0.95] font-normal text-balance text-linen sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
+        className="rise copy-shadow font-display mt-5 max-w-[15ch] text-5xl leading-[0.95] font-normal text-balance text-linen sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
         style={{ animationDelay: "220ms" }}
       >
         {site.headline.lead}{" "}
@@ -83,7 +87,7 @@ function HeroCopy() {
       </h1>
 
       <p
-        className="rise mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-pretty text-linen/75 sm:text-lg"
+        className="rise copy-shadow mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-pretty text-linen/75 sm:text-lg"
         style={{ animationDelay: "320ms" }}
       >
         {site.subhead}
@@ -101,7 +105,7 @@ function HeroCopy() {
 
         {/* Dot separators only once the row is guaranteed to fit on one line —
             below `sm` they wrap and a leading dot reads as a stray bullet. */}
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.8rem] text-linen/60 sm:gap-x-3">
+        <ul className="copy-shadow flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.8rem] text-linen/70 sm:gap-x-3">
           {site.highlights.map((item, index) => (
             <li key={item} className="flex items-center gap-3">
               {index > 0 ? (
